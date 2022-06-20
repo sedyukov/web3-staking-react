@@ -44,5 +44,10 @@
     },
     "ecmaFeatures": {
         "globalReturn": true
+    },
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
     }
 }
