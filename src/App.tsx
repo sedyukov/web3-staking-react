@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connectNode } from './web3';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+function App(): JSX.Element {
+  useEffect(() => {
+    const { ok, data } = connectNode();
+    console.log(ok, data);
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
