@@ -1,9 +1,10 @@
-# Getting Started with Create React App
+# Getting Started WEB3-REACT
 
-## Yarn
-## React
-## TypeScript
-## Eslint (airbnb)
+### Yarn
+### React
+### TypeScript
+### Eslint (airbnb) 
+### Babel
 
 
 
