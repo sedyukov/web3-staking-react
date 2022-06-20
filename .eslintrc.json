@@ -7,12 +7,12 @@
         "plugin:react/recommended",
         "airbnb"
     ],
-    "parser": "@typescript-eslint/parser",
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": "latest",
+        "ecmaVersion": 2020,
         "sourceType": "module"
     },
     "plugins": [
@@ -20,5 +20,29 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": [
+            "error"
+        ],
+        "react/jsx-filename-extension": [
+            "warn",
+            {
+                "extensions": [
+                    ".tsx"
+                ]
+            }
+        ],
+        "no-unsafe-optional-chaining": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "ts": "never",
+                "tsx": "never"
+            }
+        ]
+    },
+    "ecmaFeatures": {
+        "globalReturn": true
     }
 }
