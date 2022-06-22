@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connectNode, connectWallet } from './web3';
+import { connectNode, connectWallet } from '../web3';
 import './App.css';
 
 function App(): JSX.Element {
