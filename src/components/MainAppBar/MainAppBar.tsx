@@ -9,27 +9,18 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
 import './MainAppBar.css';
-import { connectWallet } from '../../web3';
+import { observer } from 'mobx-react';
+import { WalletStore } from '../../stores/wallet';
 
-export default function MainAppBar(): JSX.Element {
-  const [auth, setAuth] = React.useState(false);
+interface MainAppBarProps {
+  walletStore: WalletStore,
+}
+
+function MainAppBar({ walletStore }: MainAppBarProps): JSX.Element {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const handleConnectWallet = async () => {
-    await connectWallet().then((resp) => {
-      if (resp.ok) {
-        console.log(Number(resp.data));
-        setAuth(true);
-      }
-    });
   };
 
   const handleClose = () => {
@@ -43,7 +34,7 @@ export default function MainAppBar(): JSX.Element {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Staking app
           </Typography>
-          {auth ? (
+          {walletStore.wallet.isConnected ? (
             <div>
               <IconButton
                 size="large"
@@ -77,7 +68,7 @@ export default function MainAppBar(): JSX.Element {
           )
             : (
               <div>
-                <Button onClick={handleConnectWallet} color="inherit">Connect Wallet</Button>
+                <Button onClick={walletStore.connectWallet} color="inherit">Connect Wallet</Button>
               </div>
             )}
         </Toolbar>
@@ -85,3 +76,5 @@ export default function MainAppBar(): JSX.Element {
     </Box>
   );
 }
+
+export default observer(MainAppBar);

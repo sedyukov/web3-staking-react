@@ -1,30 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { connectNode, connectWallet } from '../../web3';
-import AbstractButton from '../AbstractButton/AbstractButton';
+import React from 'react';
+import { observer } from 'mobx-react';
+import { WalletStore } from '../../stores/wallet';
 
-function WalletIndicator(): JSX.Element {
-  const [nodeStatus, setNodeStatus] = useState('');
-  const [chainId, setChainId] = useState(0);
-  useEffect(() => {
-    const connect = async () => connectNode();
-    connect().then((resp) => {
-      setNodeStatus(resp.data.toString());
-    });
-  }, []);
-  const handleConnectWallet = async () => {
-    await connectWallet().then((resp) => {
-      if (resp.ok) {
-        setChainId(Number(resp.data));
-      }
-    });
-  };
+interface WalletIndicatorProps {
+  walletStore: WalletStore,
+}
+
+function WalletIndicator({ walletStore }: WalletIndicatorProps): JSX.Element {
   return (
     <>
-      <AbstractButton handleClick={handleConnectWallet} text="Connect Wallet" />
-      <div>{nodeStatus}</div>
-      <div data-testid="chain">{chainId}</div>
+      {walletStore.wallet.isConnected ? (
+        <span style={{ color: 'green' }}>Wallet connected</span>
+      ) : (
+        <span style={{ color: 'red' }}>Wallet disconnected</span>
+      )}
+      <span data-testid="chain" style={{ marginLeft: '10px' }}>
+        {'Network ID: '}
+        {walletStore.wallet.chainId}
+      </span>
     </>
   );
 }
 
-export default WalletIndicator;
+export default observer(WalletIndicator);

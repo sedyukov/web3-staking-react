@@ -2,13 +2,14 @@ import React from 'react';
 // import { connectNode, connectWallet } from '../web3';
 import WalletIndicator from '../WalletIndicator/WalletIndicator';
 import MainAppBar from '../MainAppBar/MainAppBar';
+import { WalletStoreInst } from '../../stores/wallet';
 
 function App(): JSX.Element {
   return (
     <div className="container">
-      <MainAppBar />
+      <MainAppBar walletStore={WalletStoreInst} />
       <div className="wallet">
-        <WalletIndicator />
+        <WalletIndicator walletStore={WalletStoreInst} />
       </div>
       <div>
         <div className="content">
