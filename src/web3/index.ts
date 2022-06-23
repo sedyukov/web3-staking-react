@@ -33,11 +33,11 @@ const wrapResult = (
   errorDetails,
 });
 
-export const MAINNET_INDEX = 1;
-export const RINKEBY_INDEX = 4;
+export const MAINNET_ID = 1;
+export const RINKEBY_ID = 4;
 export const getWeb3 = (): Web3 => web3Wallet || web3Guest;
 
-export const connectNode = (): resultWrapper => {
+export const connectNode = async (): Promise<resultWrapper> => {
   try {
     const network = isMainNet ? 'mainnet' : 'rinkeby';
     const url = `wss://${network}.infura.io/ws/v3/${process.env.REACT_APP_INFURA_KEY}`;
@@ -62,12 +62,12 @@ export const connectWallet = async (): Promise<resultWrapper> => {
       userAddress = await web3Wallet.eth.getCoinbase();
     }
     chainId = await web3Wallet.eth.net.getId();
-    if (isMainNet && +chainId !== 4) {
+    if (isMainNet && +chainId !== RINKEBY_ID) {
       return wrapResult(false, 'Invalid chain, change to rinkeby');
-    } if (isMainNet && +chainId !== MAINNET_INDEX) {
+    } if (isMainNet && +chainId !== MAINNET_ID) {
       return wrapResult(false, 'Invalid chain, change to mainnet');
     }
-    return wrapResult(true, RINKEBY_INDEX);
+    return wrapResult(true, chainId);
   } catch (err) {
     return wrapResult(false, 'Connection error with details', err);
   }
