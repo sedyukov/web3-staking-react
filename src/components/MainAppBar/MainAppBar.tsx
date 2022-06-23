@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
 import './MainAppBar.css';
-import { connectWallet } from '../web3';
+import { connectWallet } from '../../web3';
 
 export default function MainAppBar(): JSX.Element {
   const [auth, setAuth] = React.useState(false);
