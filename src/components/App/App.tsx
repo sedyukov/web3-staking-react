@@ -3,6 +3,7 @@ import React from 'react';
 import WalletIndicator from '../WalletIndicator/WalletIndicator';
 import MainAppBar from '../MainAppBar/MainAppBar';
 import { WalletStoreInst } from '../../stores/wallet';
+import ErrorDialog from '../ErrorDialog/ErrorDialog';
 
 function App(): JSX.Element {
   return (
@@ -27,6 +28,7 @@ function App(): JSX.Element {
           EventsTable
         </div>
       </div>
+      <ErrorDialog data-testid="errorConnectionDialog" walletStore={WalletStoreInst} />
     </div>
   );
 }
