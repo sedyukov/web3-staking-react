@@ -54,7 +54,7 @@ it('indicator showing connection values (initial=>connected=>disconnected)', asy
 
 it('error dialog opens, when metamask is not installed, and closes after click OK', async () => {
   const {
-    getByTestId, getByRole, debug, queryByRole,
+    getByTestId, getByRole, queryByRole,
   } = render(<App />);
   const walletConnectButton = getByTestId('walletConnectButton');
   let errorConnectionDialog;
