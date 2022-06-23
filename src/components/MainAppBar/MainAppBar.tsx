@@ -68,7 +68,7 @@ function MainAppBar({ walletStore }: MainAppBarProps): JSX.Element {
           )
             : (
               <div>
-                <Button onClick={walletStore.connectWallet} color="inherit">Connect Wallet</Button>
+                <Button data-testid="walletConnectButton" onClick={walletStore.connectWallet} color="inherit">Connect Wallet</Button>
               </div>
             )}
         </Toolbar>

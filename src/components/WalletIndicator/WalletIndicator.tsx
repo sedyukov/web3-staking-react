@@ -10,12 +10,14 @@ function WalletIndicator({ walletStore }: WalletIndicatorProps): JSX.Element {
   return (
     <>
       {walletStore.wallet.isConnected ? (
-        <span style={{ color: 'green' }}>Wallet connected</span>
+        <span data-testid="connectSpan" style={{ color: 'green' }}>Wallet connected</span>
       ) : (
-        <span style={{ color: 'red' }}>Wallet disconnected</span>
+        <span data-testid="disconnectSpan" style={{ color: 'red' }}>Wallet disconnected</span>
       )}
-      <span data-testid="chain" style={{ marginLeft: '10px' }}>
+      <span style={{ marginLeft: '10px' }}>
         {'Network ID: '}
+      </span>
+      <span data-testid="chainId">
         {walletStore.wallet.chainId}
       </span>
     </>

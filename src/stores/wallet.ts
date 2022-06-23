@@ -1,4 +1,6 @@
-import { action, makeObservable, observable } from 'mobx';
+import {
+  action, makeObservable, observable, runInAction,
+} from 'mobx';
 import { connectWallet } from '../web3';
 
 interface IWallet {
@@ -6,6 +8,7 @@ interface IWallet {
   isUpdating: boolean,
   messages: string[],
   chainId: string;
+  error: string;
 }
 
 export class WalletStore {
@@ -14,6 +17,7 @@ export class WalletStore {
     isUpdating: true,
     messages: [],
     chainId: '',
+    error: '',
   }
 
   constructor() {
@@ -23,13 +27,25 @@ export class WalletStore {
     });
   }
 
-    connectWallet = async (): Promise<void> => {
-      const r = await connectWallet();
-      if (r.ok) {
+  connectWallet = async (): Promise<void> => {
+    const r = await connectWallet();
+    if (r.ok) {
+      runInAction(() => {
         this.wallet.isConnected = true;
         this.wallet.chainId = r.data.toString();
-      }
+      });
+    } else {
+      runInAction(() => {
+        this.wallet.error = r.data.toString();
+      });
     }
+  }
+
+  readError = () => {
+    runInAction(() => {
+      this.wallet.error = '';
+    });
+  }
 }
 
 export const WalletStoreInst = new WalletStore();
